@@ -10,7 +10,7 @@ function NotesOutput({notes}) {
     return ( 
         <View >
             <NotesSummary notes={notes} />
-            <NotesList notes={notes} /> 
+            <NotesList notes={notes}  /> 
             
         </View>
         

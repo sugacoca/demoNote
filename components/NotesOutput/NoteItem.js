@@ -1,12 +1,20 @@
-import { Pressable, View, Text, StyleSheet, TextBase, StatusBar, SafeAreaView } from "react-native";
+import { Pressable, View, Text, StyleSheet, TextBase, StatusBar, SafeAreaView, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LABELS } from "../../data/dummy-data";
 import { getFormattedDate } from "../../util/date";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useContext } from "react";
+import { NotesContext } from "../context/NotesContext";
 
 
 
-function NoteItem({ color, updateAt, isBookmarked, labelIds, content }) {
+
+function NoteItem({id, color, updateAt, isBookmarked, labelIds, content }) {
+
+    const notesCtx = useContext(NotesContext);
+
+    const route = useRoute();
+
 
 
     const getLabelContent = (labelId) => {
@@ -25,9 +33,26 @@ function NoteItem({ color, updateAt, isBookmarked, labelIds, content }) {
 
     const navigation = useNavigation();
 
-    function notePressHandler(){
-        navigation.navigate('EditNote');
+
+    function notePressHandler() {
+        const currentScreen = route.name; // Access the current screen name
+        if (currentScreen === "Notes") {
+          navigation.navigate("EditNote"); // Navigate to EditNoteScreen
+        } else if (currentScreen === "Trash") {
+          // Display confirmation alert for restore or delete
+          Alert.alert(
+            "Note Action",
+            "What do you want to do with this note?",
+            [
+              { text: "Cancel",  onPress: () => navigation.navigate("Trash"), style: "cancel" },
+              { text: "Restore", style: "default", onPress: () => notesCtx.restoreNote({id}) },
+              { text: "Delete Permanently",style: "destructive", onPress: () => notesCtx.deleteNote({id}) },
+            ]
+          );
+        }
     }
+
+    
 
 
     return (

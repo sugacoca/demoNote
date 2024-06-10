@@ -32,6 +32,7 @@ export default function App() {
           }}>
           <Drawer.Screen
             name='Notes'
+            key='Notes'
             component={HomeScreen}
             options={{
               title: 'Notes',
@@ -42,7 +43,7 @@ export default function App() {
               ),
             }}
           />
-          <Drawer.Screen name='Labels' component={LabelsScreen}
+          <Drawer.Screen name='Labels' key='Labels' component={LabelsScreen}
             options={{
               title: 'Labels',
               drawerLabel: 'Labels',
@@ -51,7 +52,7 @@ export default function App() {
               ),
             }}
           />
-          <Drawer.Screen name='Folders' component={FoldersScreen}
+          <Drawer.Screen name='Folders' key='Folders' component={FoldersScreen}
             options={{
               title: 'Folders',
               drawerLabel: 'Folders',
@@ -60,7 +61,7 @@ export default function App() {
               ),
             }}
           />
-          <Drawer.Screen name='Trash' component={TrashScreen}
+          <Drawer.Screen name='Trash' key='Trash' component={TrashScreen}
             options={{
               title: 'Trash',
               drawerLabel: 'Trash',
@@ -89,8 +90,8 @@ export default function App() {
               options={{ headerShown: false }}
 
             />
-            <Stack.Screen name='NewNote' component={NewNoteScreen} />
-            <Stack.Screen name='EditNote' component={EditNoteScreen} />
+            <Stack.Screen name='NewNote' key='NewNote' component={NewNoteScreen} />
+            <Stack.Screen name='EditNote' key='EditNote' component={EditNoteScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </NotesContextProvider>

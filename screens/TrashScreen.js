@@ -30,25 +30,13 @@ function TrashScreen({ navigation }) {
       );
     };
   
-    const handleNotePress = (noteId) => {
-      Alert.alert(
-        "Note Action",
-        "What do you want to do with this note?",
-        [
-          { text: "Cancel", onPress: () => navigation.navigate('Trash'), style: "cancel" },
-          { text: "Restore", onPress: () => notesCtx.restoreNote(noteId) },
-          { text: "Delete Permanently", onPress: () => notesCtx.deleteNotePermanently(noteId) },
-        ]
-      );
-    };
-  
     return (
       <View>
         <View style={styles.buttonContainer}>
           <Button onPress={restoreAllNotes} children="Restore All" style={{margin: 4, backgroundColor: '#00CCFF', borderRadius: 6,}} />
           <Button onPress={deleteAllNotes} children="Delete All" style={{margin: 4,backgroundColor: '#FF0033', borderRadius: 6,}} />
         </View>
-        <NotesOutput notes={notesCtx.trash} handleNotePress={handleNotePress} />
+        <NotesOutput notes={notesCtx.trash}  />
       </View>
     );
   }

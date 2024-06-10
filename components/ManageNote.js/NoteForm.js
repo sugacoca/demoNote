@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import Input from "./Input";
 import { useState } from "react";
 import IconButton from "../../UI/IconButton";
@@ -28,6 +28,13 @@ function NoteForm({onSubmit}) {
             color: inputValues.color,
             isBookmarked: inputValues.isBookmarked,
             labelIds: inputValues.labelIds,
+        };
+
+        const contentIsValid = noteData.content.trim().length > 0;
+
+        if(!contentIsValid) {
+            Alert.alert("Invalid content, please enter your note content!")
+            return;
         };
 
         onSubmit(noteData);

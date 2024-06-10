@@ -3,7 +3,7 @@ import NoteItem from "./NoteItem";
 
 function NotesList({notes}) {
     function renderNotesItem(itemData){
-        return <NoteItem {...itemData.item} />
+        return <NoteItem key={notes.id} {...itemData.item} />
         
     }
     

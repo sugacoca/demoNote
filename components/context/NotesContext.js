@@ -18,16 +18,30 @@ function notesReducer(state, action) {
           note.id === action.data.id ? { ...note, ...action.data } : note
         ),
       };
-    case 'DELETE_NOTE':
-      const filteredNotes = state.notes.filter((note) => note.id !== action.data.id);
-      return { ...state, notes: filteredNotes, trash: [...state.trash, action.data] };
-    case 'RESTORE_NOTE':
+    case 'DELETE_NOTE': {
+        // Find the note to be deleted from the trash
+        const trashIndex = state.trash.findIndex((note) => note.id === action.data.id);
+        if (trashIndex === -1) {
+          // Note not found in trash, skip further processing
+          return state;
+        }
+  
+        // Create a new trash array without the deleted note
+        const updatedTrash = [...state.trash.slice(0, trashIndex), ...state.trash.slice(trashIndex + 1)];
+  
+        // Update the state with the modified trash array
+        return { ...state, trash: updatedTrash };
+    }
+    case 'RESTORE_NOTE': {
+      const restoredNote = state.trash.find((note) => note.id === action.data.id);
+      if (!restoredNote) return state; // Handle potential missing note
       const restoredNotes = state.trash.filter((note) => note.id !== action.data.id);
       return {
         ...state,
-        notes: [...state.notes, action.data],
+        notes: [...state.notes, restoredNote],
         trash: restoredNotes,
       };
+    }
     case 'RESTORE_ALL_NOTES': // Add new case for restoring all notes
       return { ...state, notes: [...state.notes, ...state.trash], trash: [] };
     case 'DELETE_ALL_PERMANENTLY': // Add new case for permanent deletion
