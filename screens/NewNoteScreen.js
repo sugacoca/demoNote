@@ -1,7 +1,8 @@
 import { useContext, useLayoutEffect } from "react";
-import { Text, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import IconButton from "../UI/IconButton";
 import { NotesContext } from "../components/context/NotesContext";
+import NoteForm from "../components/ManageNote.js/NoteForm";
 
 function NewNoteScreen({navigation}) {
 
@@ -13,17 +14,15 @@ function NewNoteScreen({navigation}) {
         });
     }, [navigation]);
 
-    function confirmHandler(){
-        notesCtx.addNote({
-            content: "Testing add handler",
-            updateAt: new Date('2024-9-6'),
-        });
+    function confirmHandler(noteData){
+        notesCtx.addNote(noteData);
         navigation.goBack();
     }
 
     return ( 
         <View >
-            <IconButton icon='checkmark' size={24} color='white' onPress={confirmHandler} />
+            <NoteForm onSubmit={confirmHandler} />
+            
         </View>
     );
 }

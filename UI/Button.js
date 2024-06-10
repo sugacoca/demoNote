@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 4,
         padding: 8,
-        backgroundColor: 'red',
+        borderRadius: 10,
     },
     flat: {
         backgroundColor: 'transparent'
